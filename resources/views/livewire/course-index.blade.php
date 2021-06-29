@@ -1,0 +1,92 @@
+<div>
+    {{-- cuando trabajamos con livewire, todo debe de ir dentro de un contenedor <di> --}}
+
+        {{-- Barra de navegacion --}}
+    <div class="bg-gray-200 py-4 mb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex">
+            <button class=" focus:outline-none bg-white shadow h-12 px-4 rounded-lg text-gray-700 mr-4" wire:click="resetFilters">
+                <i class="fas fa-archway text-xs mr-2"></i>
+                Todos los cursos
+            </button>
+
+
+
+
+            {{-- BOTON DROPDOWN con Alpine --}}
+  
+            <!-- Dropdown Categorias-->
+            <div class="relative mr-4" x-data="{ open: false }">
+                {{-- x-data="{ open: false } - podemos utilizar esta variable dentro de todos los elementos dentro de esta variable --}}
+                <button
+                    class="px-4 text-gray-700 block h-12 rounded-lg overflow-hidden focus:outline-none bg-white shadow"
+                    x-on:click="open = true">
+                    {{--   x-on:click="open = !open" - definir evento click, open es igual a lo contrario de open  --}}
+                    <i class="fas fa-tags text-sm mr-2"></i>
+                    Categoria
+                    <i class="fas fa-angle-down text-sm ml-2"></i>
+
+                </button>
+                <!-- Dropdown Body -->
+                <div class="absolute right-0 w-40 mt-2 py-2 bg-white border rounded shadow-xl" x-show="open"
+                    x-on:click.away="open = false">
+                    {{-- x-on:click.away="open = false" - este evento hace que al dar click en cualquier lado retorne a false --}}
+                    @foreach ($categories as $category)
+                    <a class="cursor-pointer transition-colors duration-200 block px-4 py-2 text-normal text-gray-900 rounded hover:bg-blue-500 hover:text-white" wire:click="$set('category_id', {{$category->id}})" x-on:click="open = false">
+                        {{$category->name}}
+                    </a>
+                    {{-- {{$category->name}} - nos imprime el nombre de nuestras categorias desde la BD --}}
+                    @endforeach
+                </div>
+            </div>
+
+
+      
+
+           
+            <!-- Dropdown Niveles -->
+            <div class="relative" x-data="{ open: false }">
+                {{-- x-data="{ open: false } - podemos utilizar esta variable dentro de todos los elementos dentro de esta variable --}}
+                <button
+                    class="px-4 text-gray-700 block h-12 rounded-lg overflow-hidden focus:outline-none bg-white shadow"
+                    x-on:click="open = true">
+                    {{--   x-on:click="open = !open" - definir evento click, open es igual a lo contrario de open  --}}
+                    <i class="fas fa-glasses  mr-2"></i>
+                    Niveles
+                    <i class="fas fa-angle-down text-sm ml-2"></i>
+
+                </button>
+                <!-- Dropdown Body -->
+                <div class="absolute right-0 w-40 mt-2 py-2 bg-white border rounded shadow-xl" x-show="open"
+                    x-on:click.away="open = false">
+                    {{-- x-on:click.away="open = false" - este evento hace que al dar click en cualquier lado retorne a false --}}
+                    @foreach($levels as $level)
+                    <a class="cursor transition-colors duration-200 block px-4 py-2 text-normal text-gray-900 rounded hover:bg-blue-500 hover:text-white"  wire:click="$set('level_id', {{$level->id}})" x-on:click="open = false">
+                        {{$level->name}}</a>
+                    @endforeach
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+    {{-- ========================== --}}
+
+
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-x-6 gap-y-8">
+    @foreach ($courses as $course)
+        <x-course-card :course="$course" />
+        {{-- : - para que reconozca el código como PHP --}}
+    @endforeach
+    </div>
+
+
+{{-- links de navegación --}}
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 mb-8">
+    {{$courses->links()}}
+   </div>
+
+</div>
