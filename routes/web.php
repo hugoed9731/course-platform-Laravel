@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CourseController;
+use App\Http\Livewire\CourseStatus;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,5 @@ Route::post('courses/{course}/enrolled',[CourseController::class, 'enrolled'])->
 
 
 // Ruta que te manda al curso que se ha seleccionada
-Route::get('course-status/{course}', function ($course) {
-    return "Aqui vas a poder llevar el control de tu avance";
-})->name('course.status');
+Route::get('course-status/{course}', CourseStatus::class)->name('courses.status')->middleware(('auth'));
+// le asignamos el control de la ruta a componente de livewire

@@ -13,6 +13,9 @@ class CourseController extends Controller
 
     public function show(Course $course){ // actualmente se esta enviando un parametro por la URL
 
+
+        $this->authorize('published', $course); // segundo es el objeto $course, verifica la informacion
+
         // CINCO CURSOS SIMILARES AL CUAL SE LE ESTA HACIENDO LA CONSULTA
         // recuperar el registro de los cursos similares, al curso que se esta visitando
         $similares = Course::where('category_id', $course->category_id)
@@ -36,7 +39,10 @@ class CourseController extends Controller
             // aqui recuperamos la relacion muchos a muchos de students
             // Attach sirve para agregar relaciones muchos a muchos - from google
 
-            return redirect()->route('course.status', $course);
+            return redirect()->route('courses.status', $course);
         }
 
+
+
+     
 }

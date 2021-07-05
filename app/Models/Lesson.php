@@ -9,6 +9,13 @@ class Lesson extends Model
 {
     use HasFactory;
     protected $guarded = ['id']; // block these field
+
+    public function getCompletedAttribute(){
+        // La lógica de este atributo es verificar que usuario a dejado como culminada la leccion, recuperar
+       return  $this->users->contains(auth()->user()->id);
+        // nos recupera el registro de los que han marcado una lession como culminada
+    }
+
     // Relationship one to one
     public function description(){
         return $this->hasOne('App\Models\Description');
@@ -20,13 +27,13 @@ class Lesson extends Model
     }
 
     public function platform(){
-        return $this->belongsTo('App\Models\Lesson');
+        return $this->belongsTo('App\Models\Platform');
     }
 
     // Relationship many to many
 
     public function users(){
-        return $this->belongstoMany('App\Models\User');
+        return $this->belongsToMany('App\Models\User');
     }
 
 

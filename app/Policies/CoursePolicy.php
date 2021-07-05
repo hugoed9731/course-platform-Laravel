@@ -31,4 +31,15 @@ class CoursePolicy
     //contains - verifica si uno de ellos corresponde a la esta coleccion $course->students
 
     }
+
+
+
+    public function published(?User $user,  Course $course) {
+        // ? - puede o no el usuario estar autentificao y mostrara los cursos status 3 solamente
+        if ($course->status == 3) {
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

@@ -111,7 +111,7 @@
 
                     {{-- can - validar que el usuario posea el permiso especificado --}}
                     @can('enrolled', $course)
-                        <a class="btn btn-danger btn-block mt-4" href="{{route('course.status', $course)}}">Continuar con el curso</a>
+                        <a class="btn btn-danger btn-block mt-4" href="{{route('courses.status', $course)}}">Continuar con el curso</a>
                     @else
                         {{-- cuando no este matriculado muestra este botón --}}
                         {{-- formulario para matricularte a un curso --}}
