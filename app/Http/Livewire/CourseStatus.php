@@ -125,8 +125,12 @@ class CourseStatus extends Component
             $advance = ($i * 100)/($this->course->lessons->count());
 
             return round($advance, 2); // redondeamos e indicamos que solo tenga dos decimales
-       
+}
 
+public function download() {
+    // descargar files con livewire
+    return response()->download(storage_path('app/public/' . $this->current->resource->url));
+    // storage_path - nos devuelve la ruta hasta storage
 }
 
 }

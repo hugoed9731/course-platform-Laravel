@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Course;
+use App\Models\Review;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CoursePolicy
@@ -40,6 +41,32 @@ class CoursePolicy
             return true;
         }else {
             return false;
+        }
+    }
+
+    // instructores verificar que el usuario quiere verificar un curso ha creado ese curso
+    public function dicatated(User $user, Course $course){
+        if($course->user_id == $user->id){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function revision(User $user, Course $course){
+        if ($course->status == 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // evitar que el usuario mande más de una valoración
+    public function valued(User $user, Course $course) {
+        if (Review::where('user_id', $user->id)->where('course_id', $course->id)->count()) {
+            return false;
+        } else {
+            return true;
         }
     }
 }

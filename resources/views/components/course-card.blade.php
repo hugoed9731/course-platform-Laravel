@@ -2,17 +2,17 @@
 @props(['course'])
 
 
-<article class="card">
+<article class="card flex flex-col">
     {{-- acceder a la relacion que hay entre cursos e imagenes --}}
     <img class="h-36 w-full object-cover" src="{{Storage::url($course->image->url)}}" alt="">
 
-    <div class="card-body">
+    <div class="card-body flex-1 flex flex-col">
         <h1 class="card-title">{{Str::limit($course->title, 40)}}</h1>
         {{-- leading - separacion vertical entre el texto 
                 Str- es un ayudante para poner eventos en este caso limit 
                 --}}
         {{-- Accedemos a la relacion de maestro y cursos --}}
-        <p class="text-gray-500 text-sm mb-2">Prof: {{$course->teacher->name}}</p>
+        <p class="text-gray-500 text-sm mb-2 mt-auto">Prof: {{$course->teacher->name}}</p>
         {{-- Rating estrellas --}}
         <div class="flex">
 
@@ -38,8 +38,17 @@
             </p>
         </div>
 
+
+        {{-- Precios $--}}
+
+        @if ($course->price->value == 0)
+        <p class="my-2 text-green-800 font-bold">GRATIS</p>
+        @else
+        <p class="my-2 text-gray-500 font-bold">US$ {{$course->price->value}}</p>
+        @endif
+
         <a href="{{route('courses.show', $course)}}"
-            class="btn-block mt-4 btn btn-primary">
+            class="btn-block btn btn-primary">
             Más infomación
         </a>
 

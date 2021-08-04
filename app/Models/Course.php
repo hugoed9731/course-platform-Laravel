@@ -48,11 +48,15 @@ class Course extends Model
         }
     }
 
-
     // metodo para que en la url no de id si no el slug nombre del curso, osea url amigable
     public function getRouteKeyName()
     {
         return "slug";
+    }
+
+    // Relación uno a uno
+    public function observation(){
+        return $this->hasOne('App\Models\Observation');
     }
 
     // Relationships one to many
@@ -84,10 +88,10 @@ class Course extends Model
             return $this->belongsTo('App\Models\Level');
         }
         public function category(){
-            return $this->belongsTo('App\Models\category');
+            return $this->belongsTo('App\Models\Category');
         }
         public function price(){
-            return $this->belongsTo('App\Models\price');
+            return $this->belongsTo('App\Models\Price');
         }
      // Relationship many to many 
      

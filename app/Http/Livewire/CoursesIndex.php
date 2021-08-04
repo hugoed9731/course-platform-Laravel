@@ -10,7 +10,7 @@ use App\Models\Level;
 use Livewire\WithPagination;
 
 
-class CourseIndex extends Component
+class CoursesIndex extends Component
 {
     use WithPagination; // con esto logramos que la paginacion no se recarge
     public $category_id;
@@ -29,7 +29,7 @@ class CourseIndex extends Component
         ->level($this->level_id)
         ->latest('id')
         ->paginate(8);
-        return view('livewire.course-index', compact('courses', 'categories', 'levels'));// aqui le pasamos lo recuperado de los models a view
+        return view('livewire.courses-index', compact('courses', 'categories', 'levels'));// aqui le pasamos lo recuperado de los models a view
     }
 
 

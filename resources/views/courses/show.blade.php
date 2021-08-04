@@ -71,7 +71,7 @@
             {{-- Requisitos --}}
 
             <section class="mb-8">
-                <h1 class="font-bold text-3xl">Requisitos</h1>
+                <h1 class="font-bold text-3xl text-gray-800">Requisitos</h1>
 
                 <ul class="list-disc list-inside">
                     @foreach ($course->requirements as $requirement)
@@ -82,13 +82,15 @@
 
 
             <section>
-                <h1 class="font-bold text-3xl">Descripcion</h1>
+                <h1 class="font-bold text-3xl text-gray-800">Descripción</h1>
 
                 <div class="text-gray-700 text-base">
-                    {{$course->description}}
-
+                    {!!$course->description!!}
                 </div>
             </section>
+
+
+            @livewire('courses-reviews', ['course' => $course])
 
 
 
@@ -111,15 +113,25 @@
 
                     {{-- can - validar que el usuario posea el permiso especificado --}}
                     @can('enrolled', $course)
+
                         <a class="btn btn-danger btn-block mt-4" href="{{route('courses.status', $course)}}">Continuar con el curso</a>
+                    
                     @else
                         {{-- cuando no este matriculado muestra este botón --}}
                         {{-- formulario para matricularte a un curso --}}
-                   <form action="{{route('courses.enrolled', $course)}}" method="post">
-                    {{-- cuando mandamos cosas por formulario se incluye el token csrf --}}
-                    @csrf
-                       <button  class="btn btn-danger btn-block mt-4" type="submit">Llevar este curso</button>
-                   </form>
+                        @if ($course->price->value == 0)
+                            <p class="text-2xl font-bold text-gray-500 mt-3 mb-2">GRATIS</p>
+
+                            <form action="{{route('courses.enrolled', $course)}}" method="post">
+                            {{-- cuando mandamos cosas por formulario se incluye el token csrf --}}
+                            @csrf
+                            <button  class="btn btn-danger btn-block" type="submit">Llevar este curso</button>
+                            </form>
+                        @else 
+                        <p class="text-2xl font-bold text-gray-500 mt-3 mb-2">US$ {{$course->price->value}}</p>
+                        <a href="{{route('payment.checkout', $course)}}" class="btn btn-danger btn-block ">Comprar este curso</a>
+                        {{-- si el curso tiene costo muestra esto --}}
+                         @endif
                     @endcan
 
 

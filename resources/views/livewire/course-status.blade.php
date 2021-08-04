@@ -16,8 +16,9 @@
                 </div>
             @endif
 
-            {{-- boton LECCION CULMINANDA --}}
-            <div class="flex items-center mt-4 cursor-pointer" wire:click="completed">
+           <div class="flex justify-between mt-4">
+                {{-- boton LECCION CULMINANDA --}}
+            <div class="flex items-center  cursor-pointer" wire:click="completed">
                 @if ($current->completed)
                     <i class="fas fa-toggle-on text 2xl text-blue-600"></i>
                     @else
@@ -25,6 +26,15 @@
                 @endif
                 <p class="text-sm ml-2">Marcar esta unidad como culminada</p>
             </div>
+            {{-- si esta leccion tiene algun recurso? --}}
+            @if ($current->resource)
+            <div class="flex items-center text-gray-600 cursor-pointer" wire:click="download">
+                <i class="fas fa-download text-lg"></i>
+                <p class="text-sm ml-2">Descargar recurso</p>
+            </div>
+            @endif
+           
+           </div>
 
 
             <div class="card mt-2">

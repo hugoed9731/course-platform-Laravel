@@ -14,10 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Storage::deleteDirectory('cursos'); // we do that the images are not stored
+        Storage::deleteDirectory('courses'); // we do that the images are not stored
 
-        Storage::makeDirectory('cursos');
+        Storage::makeDirectory('courses');
         // Call the seeder
+
+        // agregamos los nuevos seeders
+        $this->call(PermissionSeeder::class);
+        $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(LevelSeeder::class);
         $this->call(CategorySeeder::class);

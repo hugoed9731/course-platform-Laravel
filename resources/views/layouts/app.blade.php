@@ -34,5 +34,10 @@
         @stack('modals')
 
         @livewireScripts
+
+        @isset($js)
+        {{-- isset verifica si la variable js esta definida, si no esta definica la ignora --}}
+        {{$js}}
+        @endisset
     </body>
 </html>
